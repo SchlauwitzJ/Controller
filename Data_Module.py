@@ -1,3 +1,24 @@
+"""
+
+Use these blocks in parallel or series to modify inputs into a desired form.
+
+Process Block:      --[]--
+
+Constant Block:     -|[x]--
+Proportional Block: --[x]--
+Derivative Block:   --[d/dt]--
+Integral Block:     --[+x*dt]--
+Delay Block:        --[1/ds]--
+
+Sum Block:          ==[x+y]--
+Product Block:      ==[x*y]--
+
+Clip Block:         --[^-v]-- todo
+Default To Block:      --[<o>]-- todo
+
+Time Block:         -|[t]-- todo
+Counter Block:      --[+dt|x]-- todo
+"""
 import numpy as np
 from copy import deepcopy
 
@@ -81,3 +102,25 @@ class IntegralBlock(ProcessBlock):
             self.output_data = self.input_data * dt
         else:
             self.output_data += self.input_data * dt
+
+
+class SumBlock(ProcessBlock):
+    """
+    Sum the input into a single value.
+    """
+    def __init__(self, **kwargs):
+        super().__init__()
+
+    def process(self, dt=1.0):
+        self.output_data = np.sum(self.input_data)
+
+
+class ProductBlock(ProcessBlock):
+    """
+    Multiply the input into a single value.
+    """
+    def __init__(self, **kwargs):
+        super().__init__()
+
+    def process(self, dt=1.0):
+        self.output_data = np.prod(self.input_data)
