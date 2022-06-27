@@ -2,16 +2,17 @@
 
 Use these blocks in parallel or series to modify inputs into a desired form.
 
-Process Block:      --[]--
+Process Block:      --[-]--
 
 Constant Block:     -|[x]--
 Proportional Block: --[x]--
 Derivative Block:   --[d/dt]--
 Integral Block:     --[+x*dt]--
-Delay Block:        --[1/ds]--
+Delay Block:        --[1/ds]-- todo
 
 Sum Block:          ==[x+y]--
 Product Block:      ==[x*y]--
+Inverse Block:      --[1/x]-- todo
 
 Clip Block:         --[^-v]-- todo
 Default To Block:      --[<o>]-- todo
@@ -38,7 +39,7 @@ class ProcessBlock:
         return
 
     def output(self):
-        return deepcopy(self.output_data)
+        return list(deepcopy(self.output_data))
 
     def is_not_used(self):
         pass
